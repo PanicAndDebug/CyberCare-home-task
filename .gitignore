@@ -1,0 +1,11 @@
+# Ignore node modules
+node_modules/
+
+# Ignore Playwright test reports and results
+playwright-report/
+test-results/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+npm-debug.log*

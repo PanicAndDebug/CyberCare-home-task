@@ -1,0 +1,31 @@
+{
+  "name": "cybercare-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:visual": "npx playwright test --ui",
+    "test:ui": "playwright test tests/ui",
+    "test:api": "playwright test tests/api",
+    "format": "npx prettier --write .",
+    "lint": "npx eslint . --fix",
+    "format:lint": "npm run format && npm run lint",
+    "commit": "npm run format:lint && git add . && git commit -m",
+    "commit:push": "npm run commit && git push"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "@types/node": "^22.13.16",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-playwright": "^2.2.0",
+    "playwright": "^1.51.1",
+    "prettier": "^3.5.3",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.2"
+  }
+}
