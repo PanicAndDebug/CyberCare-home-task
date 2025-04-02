@@ -67,8 +67,8 @@ export class CheckoutPage extends BasePage {
       expectedMonthlyPlanPrice.toFixed(2),
     );
 
-    expect(planPrice).toBeGreaterThanOrEqual(roundedExpectedPrice - 20);
-    expect(planPrice).toBeLessThanOrEqual(roundedExpectedPrice + 20);
+    expect(planPrice).toBeGreaterThanOrEqual(roundedExpectedPrice - 10);
+    expect(planPrice).toBeLessThanOrEqual(roundedExpectedPrice + 10);
   }
 
   // Enter email dynamically
