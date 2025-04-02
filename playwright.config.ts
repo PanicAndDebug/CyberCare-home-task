@@ -1,6 +1,10 @@
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
+  globalSetup: "./globalSetup.ts",
+  expect: {
+    timeout: 5000,
+  },
   testDir: "./tests",
   projects: [
     {
@@ -15,7 +19,6 @@ export default defineConfig({
       testDir: "./tests/ui",
       use: {
         baseURL: "https://nordcheckout.com",
-        viewport: { width: 1280, height: 720 },
       },
     },
   ],

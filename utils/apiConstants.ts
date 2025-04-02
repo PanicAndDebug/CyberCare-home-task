@@ -1,4 +1,4 @@
-export const ENDPOINT = "/v1/helpers/ips/insights";
+export const getHelpersEndpoint = "/v1/helpers/ips/insights";
 
 export const testIPs = {
   valid: "45.128.38.232",
