@@ -67,4 +67,4 @@ npm run commit:push
 ## Test Coverage
 
 - **API Tests**: Verify IP insight response structure, correct IP validation, ISP details, response times, and error handling.
-- **UI Tests**: Validate pricing, login page navigation, and crypto payment flow.
+- **UI Tests**: Validate pricing and login page navigation.
