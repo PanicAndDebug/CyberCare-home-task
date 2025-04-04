@@ -2,51 +2,41 @@ import { test, expect } from "@playwright/test";
 import { ProductsPage } from "../../pages/productsPage";
 import { LoginPage } from "../../pages/loginPage";
 import { CheckoutPage } from "../../pages/checkoutPage";
-import { CryptoPaymentPage } from "../../pages/cryptoPaymentPage";
-import { exchangeEurToUsd } from "../../utils/uiHelpers";
-import { exchangeRate, email } from "../../utils/uiConstants";
 
 test.describe("NordVPN Checkout Flow", () => {
   let productsPage: ProductsPage;
   let loginPage: LoginPage;
   let checkoutPage: CheckoutPage;
-  let cryptoPaymentPage: CryptoPaymentPage;
 
-  // Setup before each test
   test.beforeEach(async ({ page }) => {
     productsPage = new ProductsPage(page);
     loginPage = new LoginPage(page);
     checkoutPage = new CheckoutPage(page);
-    cryptoPaymentPage = new CryptoPaymentPage(page);
-
-    // Navigate to the products page before each test
     await productsPage.navigate();
   });
 
-  test("Validate pricing by checking discount over base monthly price", async () => {
-    await productsPage.clickBuyNordVPN();
-
-    //Validate login page
-    await productsPage.clickLogin();
-    await loginPage.verifyLoginPage();
-
-    // Validate pricing
-    await checkoutPage.comparePlanWithMonthly("1-year plan");
-  });
-
-  test.skip("Validate pricing by checking selected plan price over crypto checkout estimated price", async () => {
+  //This is the validation as per updated requirements
+  test("Validate that the total cart price equals the pre-tax price plus VAT", async () => {
     await productsPage.clickBuyNordVPN();
     await productsPage.clickLogin();
     await loginPage.verifyLoginPage();
     await checkoutPage.selectPlan("1-year plan");
 
-    const totalPriceInEur = await checkoutPage.getTotalPricePostVat();
-    await checkoutPage.enterEmail(email);
-    await checkoutPage.proceedToCryptoPayment();
+    const preVat = await checkoutPage.getTotalPreVat();
+    const vat = await checkoutPage.getVat();
+    const postVat = await checkoutPage.getTotalPostVat();
 
-    const totalPriceInUsd = await cryptoPaymentPage.getTotalPrice();
-    const expectedPriceInUsd = exchangeEurToUsd(totalPriceInEur, exchangeRate);
+    expect(postVat).toEqual(preVat + vat);
+  });
 
-    expect(totalPriceInUsd).toBeCloseTo(expectedPriceInUsd, 0.1);
+  // This test checks if the selected annual plan price matches the expected monthly plan price,
+  // factoring in the declared discount amount on the annual plan.
+  // Although the prices don’t match exactly, there might be a business reason behind this discrepancy,
+  // the lack of which would indicate bug.
+  test("Validate pricing by checking discount over base monthly price", async () => {
+    await productsPage.clickBuyNordVPN();
+    await productsPage.clickLogin();
+    await loginPage.verifyLoginPage();
+    await checkoutPage.comparePlanWithMonthly("1-year plan");
   });
 });

@@ -6,7 +6,6 @@ export class LoginPage extends BasePage {
     super(page);
   }
 
-  // Verify login page
   async verifyLoginPage() {
     await expect(this.page).toHaveURL(/login/);
     await this.page.goBack();
