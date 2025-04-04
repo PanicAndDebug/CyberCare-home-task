@@ -16,6 +16,11 @@ export class CheckoutPage extends BasePage {
   private postVatTotalLocator: Locator = this.page.getByTestId(
     "CartSummary-total-amount",
   );
+  private loginLink: Locator = this.page.locator("text=Log In");
+
+  async clickLogin() {
+    await this.loginLink.click();
+  }
 
   public async getPlanPriceAndSavings(partialPlanName: string) {
     await this.planDropdown.click();

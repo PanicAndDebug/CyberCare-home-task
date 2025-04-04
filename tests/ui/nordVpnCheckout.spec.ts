@@ -18,7 +18,7 @@ test.describe("NordVPN Checkout Flow", () => {
   //This is the validation as per updated requirements
   test("Validate that the total cart price equals the pre-tax price plus VAT", async () => {
     await productsPage.clickBuyNordVPN();
-    await productsPage.clickLogin();
+    await checkoutPage.clickLogin();
     await loginPage.verifyLoginPage();
     await checkoutPage.selectPlan("1-year plan");
 
@@ -35,7 +35,7 @@ test.describe("NordVPN Checkout Flow", () => {
   // the lack of which would indicate bug.
   test("Validate pricing by checking discount over base monthly price", async () => {
     await productsPage.clickBuyNordVPN();
-    await productsPage.clickLogin();
+    await checkoutPage.clickLogin();
     await loginPage.verifyLoginPage();
     await checkoutPage.comparePlanWithMonthly("1-year plan");
   });

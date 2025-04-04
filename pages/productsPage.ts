@@ -7,7 +7,6 @@ export class ProductsPage extends BasePage {
   }
 
   private buyNordVPNButton: Locator = this.page.locator("text=Buy NordVPN");
-  private loginLink: Locator = this.page.locator("text=Log In");
 
   async navigate() {
     await this.page.goto("/products");
@@ -15,9 +14,5 @@ export class ProductsPage extends BasePage {
 
   async clickBuyNordVPN() {
     await this.buyNordVPNButton.click();
-  }
-
-  async clickLogin() {
-    await this.loginLink.click();
   }
 }
